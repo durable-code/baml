@@ -36,7 +36,7 @@ use indexmap::IndexMap;
 use internal_baml_core::configuration::GeneratorOutputType;
 use internal_baml_core::configuration::Generator;
 use on_log_event::LogEventCallbackSync;
-use runtime::InternalBamlRuntime;
+pub use runtime::InternalBamlRuntime;
 
 #[cfg(not(target_arch = "wasm32"))]
 pub use cli::CallerType;
