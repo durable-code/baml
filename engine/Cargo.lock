@@ -777,7 +777,7 @@ dependencies = [
  "log",
  "pyo3",
  "pyo3-asyncio",
- "pyo3-build-config",
+ "pyo3-build-config 0.21.2",
  "pythonize",
  "regex",
  "serde",
@@ -1913,12 +1913,6 @@ checksum = "6d621efb26863f0e9924c6ac577e8275e5e6b77455db64ffa6c65c904e9e132c"
 dependencies = [
  "unicode-segmentation",
 ]
-
-[[package]]
-name = "heck"
-version = "0.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
 
 [[package]]
 name = "heck"
@@ -3194,17 +3188,15 @@ dependencies = [
 
 [[package]]
 name = "pyo3"
-version = "0.21.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a5e00b96a521718e08e03b1a622f01c8a8deb50719335de3f60b3b3950f069d8"
+version = "0.22.0-dev"
+source = "git+https://github.com/liammcinroy/pyo3?branch=nofreeze#4e599e0ebda1686541516b769255107545890f2d"
 dependencies = [
  "cfg-if",
  "indoc",
  "libc",
  "memoffset",
- "parking_lot",
  "portable-atomic",
- "pyo3-build-config",
+ "pyo3-build-config 0.22.0-dev",
  "pyo3-ffi",
  "pyo3-macros",
  "serde",
@@ -3214,7 +3206,7 @@ dependencies = [
 [[package]]
 name = "pyo3-asyncio"
 version = "0.21.0"
-source = "git+https://github.com/BoundaryML/pyo3-asyncio.git?branch=migration-pyo3-0.21#d1ec64076dd1b5c797db4b7b811f588466956d20"
+source = "git+https://github.com/liammcinroy/pyo3-asyncio.git?branch=migration-pyo3-0.22#315efe911f97638e8644b30fe1c315d25b36b105"
 dependencies = [
  "futures",
  "once_cell",
@@ -3230,25 +3222,32 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7883df5835fafdad87c0d888b266c8ec0f4c9ca48a5bed6bbb592e8dedee1b50"
 dependencies = [
  "once_cell",
+ "target-lexicon",
+]
+
+[[package]]
+name = "pyo3-build-config"
+version = "0.22.0-dev"
+source = "git+https://github.com/liammcinroy/pyo3?branch=nofreeze#4e599e0ebda1686541516b769255107545890f2d"
+dependencies = [
+ "once_cell",
  "python3-dll-a",
  "target-lexicon",
 ]
 
 [[package]]
 name = "pyo3-ffi"
-version = "0.21.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "01be5843dc60b916ab4dad1dca6d20b9b4e6ddc8e15f50c47fe6d85f1fb97403"
+version = "0.22.0-dev"
+source = "git+https://github.com/liammcinroy/pyo3?branch=nofreeze#4e599e0ebda1686541516b769255107545890f2d"
 dependencies = [
  "libc",
- "pyo3-build-config",
+ "pyo3-build-config 0.22.0-dev",
 ]
 
 [[package]]
 name = "pyo3-macros"
-version = "0.21.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "77b34069fc0682e11b31dbd10321cbf94808394c56fd996796ce45217dfac53c"
+version = "0.22.0-dev"
+source = "git+https://github.com/liammcinroy/pyo3?branch=nofreeze#4e599e0ebda1686541516b769255107545890f2d"
 dependencies = [
  "proc-macro2",
  "pyo3-macros-backend",
@@ -3258,13 +3257,12 @@ dependencies = [
 
 [[package]]
 name = "pyo3-macros-backend"
-version = "0.21.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08260721f32db5e1a5beae69a55553f56b99bd0e1c3e6e0a5e8851a9d0f5a85c"
+version = "0.22.0-dev"
+source = "git+https://github.com/liammcinroy/pyo3?branch=nofreeze#4e599e0ebda1686541516b769255107545890f2d"
 dependencies = [
- "heck 0.4.1",
+ "heck 0.5.0",
  "proc-macro2",
- "pyo3-build-config",
+ "pyo3-build-config 0.22.0-dev",
  "quote",
  "syn 2.0.76",
 ]
@@ -3280,9 +3278,8 @@ dependencies = [
 
 [[package]]
 name = "pythonize"
-version = "0.21.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d0664248812c38cc55a4ed07f88e4df516ce82604b93b1ffdc041aa77a6cb3c"
+version = "0.22.0"
+source = "git+https://github.com/liammcinroy/pythonize?branch=migration-fork-nofreeze#51a3c940b4408bc06a18fa2192e91d154b102899"
 dependencies = [
  "pyo3",
  "serde",

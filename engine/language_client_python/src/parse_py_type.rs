@@ -4,7 +4,7 @@ use anyhow::Result;
 use baml_types::{BamlMap, BamlValue};
 use pyo3::{
     exceptions::{PyRuntimeError, PyTypeError},
-    prelude::{PyAnyMethods, PyTypeMethods},
+    prelude::{PyAnyMethods, PyDictMethods, PyTypeMethods},
     types::{PyBool, PyBoolMethods, PyDict, PyList},
     PyErr, PyObject, PyResult, Python, ToPyObject,
 };
@@ -265,7 +265,7 @@ pub fn parse_py_type(
 
                 // Get extra fields (like if this is a @@dynamic class)
                 if let Ok(extra) = any.getattr(py, "__pydantic_extra__") {
-                    if let Ok(extra_dict) = extra.downcast::<PyDict>(py) {
+                    if let Ok(extra_dict) = extra.downcast_bound::<PyDict>(py) {
                         for (key, value) in extra_dict.iter() {
                             if let (Ok(key), value) = (key.extract::<String>(), value) {
                                 fields.insert(key, value.to_object(py));
