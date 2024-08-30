@@ -33,8 +33,9 @@ use baml_types::BamlMap;
 use baml_types::BamlValue;
 use client_registry::ClientRegistry;
 use indexmap::IndexMap;
-use internal_baml_core::configuration::GeneratorOutputType;
 use internal_baml_core::configuration::Generator;
+use internal_baml_core::configuration::GeneratorOutputType;
+use jsonish::BamlValueWithFlags;
 use on_log_event::LogEventCallbackSync;
 use runtime::InternalBamlRuntime;
 
@@ -260,6 +261,29 @@ impl BamlRuntime {
             }
         }
         (response, target_id)
+    }
+
+    pub fn render_prompt_no_client(
+        &self,
+        function_name: &str,
+        params: &BamlMap<String, BamlValue>,
+        ctx: &RuntimeContextManager,
+        default_role: &String,
+    ) -> Result<RenderedPrompt> {
+        let rctx = ctx.create_ctx(None, None)?;
+        self.inner
+            .render_prompt_no_client(function_name, params, &rctx, default_role)
+    }
+
+    pub fn parse_completion(
+        &self,
+        function_name: &str,
+        ctx: &RuntimeContextManager,
+        completion: &str,
+    ) -> Result<BamlValueWithFlags> {
+        let rctx = ctx.create_ctx(None, None)?;
+        self.inner
+            .parse_completion(function_name, &rctx, completion)
     }
 
     pub fn stream_function(

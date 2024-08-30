@@ -33,7 +33,8 @@ use internal_baml_core::{
     },
     validate,
 };
-use internal_baml_jinja::RenderedPrompt;
+use internal_baml_jinja::{RenderContext_Client, RenderedPrompt};
+use jsonish::BamlValueWithFlags;
 
 impl<'a> InternalClientLookup<'a> for InternalBamlRuntime {
     // Gets a top-level client/strategy by name
@@ -441,5 +442,49 @@ impl RuntimeInterface for InternalBamlRuntime {
             #[cfg(not(target_arch = "wasm32"))]
             tokio_runtime,
         })
+    }
+}
+
+impl InternalBamlRuntime {
+    pub fn render_prompt_no_client(
+        &self,
+        function_name: &str,
+        params: &BamlMap<String, BamlValue>,
+        ctx: &RuntimeContext,
+        default_role: &String,
+    ) -> Result<RenderedPrompt> {
+        let func = self.get_function(function_name, ctx)?;
+        let baml_args = self.ir().check_function_params(
+            &func,
+            &params,
+            ArgCoercer {
+                span_path: None,
+                allow_implicit_cast_to_string: false,
+            },
+        )?;
+
+        let renderer = PromptRenderer::from_function(&func, &self.ir(), ctx)?;
+        renderer.render_prompt(
+            &self.ir(),
+            ctx,
+            &baml_args,
+            &RenderContext_Client {
+                name: "no name".to_string(),
+                provider: "no provider".to_string(),
+                default_role: default_role.clone(),
+            },
+        )
+    }
+
+    pub fn parse_completion(
+        &self,
+        function_name: &str,
+        ctx: &RuntimeContext,
+        completion: &str,
+    ) -> Result<BamlValueWithFlags> {
+        let func = self.get_function(function_name, ctx)?;
+
+        let renderer = PromptRenderer::from_function(&func, &self.ir(), ctx)?;
+        renderer.parse(completion, false)
     }
 }
