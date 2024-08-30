@@ -1,5 +1,5 @@
 mod errors;
-mod parse_py_type;
+pub mod parse_py_type;
 mod runtime;
 mod types;
 
